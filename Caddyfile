@@ -1,0 +1,17 @@
+0.0.0.0:2015 {
+
+	log stdout
+	errors stdout
+
+	gzip
+
+	fastcgi / 127.0.0.1:9000 php
+
+	root /var/www/html
+
+	rewrite / {
+	    to {path} {path}/ /index.php?{query}
+	}
+
+	startup /usr/local/sbin/php-fpm -D &
+}

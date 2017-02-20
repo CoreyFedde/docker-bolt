@@ -1,34 +1,23 @@
-FROM tgbyte/nginx-php-fpm
+FROM unitedasian/caddy
 
 MAINTAINER Olivier Pichon <op@united-asian.com>
 
-RUN usermod -u 1000 www-data
+COPY Caddyfile /etc/Caddyfile
 
-RUN apt-get update && apt-get install -y \
-		curl \
-		git \
-		locales \
-		php5-apcu \
-		php5-curl \
-		php5-gd \
-		php5-intl \
-		php5-json \
-		php5-mcrypt \
-		php5-mysql \
-		supervisor \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& cd /var \
+WORKDIR /var/www/html
+
+RUN apt-get update && apt-get install -y --force-yes \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng12-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+	&& cd /var/www \
+	&& rm -rf html \
 	&& git clone git://github.com/bolt/bolt.git www \
 	&& cd www \
-	&& git checkout v3.0.2 \
-	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-	&& composer install
-
-COPY files /
-
-WORKDIR /var/www
-
-EXPOSE 80 443
-
-ENTRYPOINT "/entrypoint.sh"
+	&& git checkout v3.2.7 \
+	&& composer install -n --no-dev --no-suggest --no-progress \
+	&& chown -R www-data:www-data . \
+	&& chmod -R 777 app/cache/ app/config/ app/database/ extensions/ \
+	&& chmod -R 777 public/thumbs/ public/extensions/ public/files/ public/theme/
