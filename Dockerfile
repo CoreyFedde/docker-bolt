@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --force-yes \
     && docker-php-ext-install -j$(nproc) gd \
     && cd /var/www \
     && rm -rf html \
-    && composer create-project bolt/composer-install:^3.2 html --prefer-dist --no-interaction \
+    && composer create-project bolt/composer-install:~3.2.2 html --prefer-dist --no-interaction \
     && cd html \
 	&& chown -R www-data:www-data . \
 	&& chmod -R 777 app/cache/ app/config/ app/database/ extensions/ \
