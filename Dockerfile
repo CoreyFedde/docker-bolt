@@ -1,4 +1,4 @@
-FROM unitedasian/caddy
+FROM unitedasian/caddy:latest
 
 MAINTAINER Olivier Pichon <op@united-asian.com>
 
@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y --force-yes \
     && cd html \
 	&& chown -R www-data:www-data . \
 	&& chmod -R 777 app/cache/ app/config/ app/database/ extensions/ \
-	&& chmod -R 777 public/thumbs/ public/extensions/ public/files/ public/theme/
+	&& chmod -R 777 public/thumbs/ public/extensions/ public/files/ public/theme/ \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 WORKDIR /var/www/html
