@@ -5,6 +5,7 @@ MAINTAINER Olivier Pichon <op@united-asian.com>
 COPY Caddyfile /etc/Caddyfile
 
 RUN apt-get update && apt-get install -y --force-yes \
+        exif \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng12-dev \
