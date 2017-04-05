@@ -1,7 +1,7 @@
 Bolt CMS Docker image
 =====================
 
-A docker image to run the [https://bolt.cm/](Bolt CMS).
+A docker image to run the [Bolt CMS](https://bolt.cm/).
 
 Usage
 -----
