@@ -1,4 +1,4 @@
-FROM unitedasian/caddy:latest
+FROM unitedasian/caddy:opcache
 
 MAINTAINER Olivier Pichon <op@united-asian.com>
 
