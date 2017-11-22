@@ -30,7 +30,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositorie
 	&& cd /var \
 	&& git clone git://github.com/bolt/bolt.git www \
 	&& cd www \
-	&& git checkout v2.2.21 \
+	&& git checkout v2.1.6 \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 	&& composer install
 
